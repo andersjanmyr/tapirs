@@ -8,7 +8,6 @@ var express = require('express'),
     path = require('path');
 
 var corsMiddleware = function (req, res, next) {
-  console.log("add to header called ... " + req.url);
   res.header('Access-Control-Allow-Origin', '*');
   next();
 }
