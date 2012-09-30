@@ -20,19 +20,29 @@ var facts = [
     'Tapirs mate both on land and in water.'
 ];
 
-function toJson(index) {
+function toJson(fact) {
     return {
-        id: index,
-        fact: facts[index]
+        id: facts.indexOf(fact),
+        fact: fact
     };
 }
 
 
+function find_matching(name) {
+    console.log(name);
+    var regex = new RegExp(name);
+    return facts.filter(function(fact) {
+        return regex.test(fact);
+    });
+}
+
 var routes = function(app) {
     app.get('/facts', function(req, res) {
-        var jsons = [];
-        for (var i in facts)
-            jsons.push(toJson(i));
+        if (req.query.search)
+            matching = find_matching(req.query.search);
+        else
+            matching = facts;
+        var jsons = matching.map(toJson);
         res.send(jsons);
     });
 
@@ -44,18 +54,18 @@ var routes = function(app) {
     });
 
     app.get('/facts/:id', function(req, res) {
-        res.send(toJson(req.params.id));
+        res.send(toJson(facts[req.params.id]));
     });
 
     app.put('/facts/:id', function(req, res) {
         console.log(req.params.id, req.body);
         facts[req.params.id] = req.body.fact;
-        res.send(toJson(req.params.id));
+        res.send(toJson(facts[req.params.id]));
     });
 
     app.del('/facts/:id', function(req, res) {
         console.log(req.params.id);
-        var json = toJson(req.params.id);
+        var json = toJson(facts[req.params.id]);
         delete facts[req.params.id]
         res.send(json);
     });
