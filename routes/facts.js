@@ -36,6 +36,13 @@ var routes = function(app) {
         res.send(jsons);
     });
 
+    app.post('/facts', function(req, res) {
+        console.log(req.body);
+        facts[facts.length] = req.body.fact;
+        res.status(201);
+        res.send(req.params.id);
+    });
+
     app.get('/facts/:id', function(req, res) {
         res.send(toJson(req.params.id));
     });
@@ -45,6 +52,14 @@ var routes = function(app) {
         facts[req.params.id] = req.body.fact;
         res.send(toJson(req.params.id));
     });
+
+    app.del('/facts/:id', function(req, res) {
+        console.log(req.params.id);
+        var json = toJson(req.params.id);
+        delete facts[req.params.id]
+        res.send(json);
+    });
+
 };
 
 module.exports = routes;
