@@ -20,18 +20,30 @@ var facts = [
     'Tapirs mate both on land and in water.'
 ];
 
+function toJson(index) {
+    return {
+        id: index,
+        fact: facts[index]
+    };
+}
+
+
 var routes = function(app) {
-    app.get('/facts', function(req, res){
-        res.send(facts);
+    app.get('/facts', function(req, res) {
+        var jsons = [];
+        for (var i in facts)
+            jsons.push(toJson(i));
+        res.send(jsons);
     });
 
-    app.get('/facts/:id', function(req, res){
-        res.send(facts[req.params.id]);
+    app.get('/facts/:id', function(req, res) {
+        res.send(toJson(req.params.id));
     });
 
-    app.put('/facts/:id', function(req, res){
-        console.log(req.params);
-        res.send(facts[req.params.id]);
+    app.put('/facts/:id', function(req, res) {
+        console.log(req.params.id, req.body);
+        facts[req.params.id] = req.body.fact;
+        res.send(toJson(req.params.id));
     });
 };
 
