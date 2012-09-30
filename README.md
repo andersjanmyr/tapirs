@@ -1,6 +1,9 @@
-An example app for showing Cross-Origin Resource Sharing (CORS).
-CORS allows clients from a different domain to access the services of another
+An example app for showing Cross-Origin Resource Sharing (CORS).  CORS allows
+Javascript clients from a different domain to access the services of another
 domain without the need to use JSONP.
+
+A running example can be found at http://tapirs.herkuapp.com
+
 
 This is done by setting the header:
 
