@@ -13,7 +13,7 @@ This is done by setting the header:
 The application supports the routes
 
     /
-    get /facts
+    get /facts?query=text // All facts or facts matching query
     get /facts/:id
     post /facts
     put /facts/:id
