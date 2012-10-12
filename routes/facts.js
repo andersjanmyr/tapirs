@@ -52,6 +52,7 @@ var routes = function(app) {
         facts[id] = req.body.fact;
         res.status(201);
         res.send(id);
+        console.log(id);
     });
 
     app.get('/facts/:id', function(req, res) {
