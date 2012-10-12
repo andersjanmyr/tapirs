@@ -50,8 +50,7 @@ var routes = function(app) {
         console.log(req.body);
         var id = facts.length;
         facts[id] = req.body.fact;
-        res.status(201);
-        res.send(id);
+        res.send(201, id);
         console.log(id);
     });
 
