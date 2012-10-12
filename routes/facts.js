@@ -50,8 +50,7 @@ var routes = function(app) {
         console.log(req.body);
         var id = facts.length;
         facts[id] = req.body.fact;
-        res.send(201, id);
-        console.log(id);
+        res.send(201, '' + id);
     });
 
     app.get('/facts/:id', function(req, res) {
