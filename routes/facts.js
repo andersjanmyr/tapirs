@@ -48,9 +48,10 @@ var routes = function(app) {
 
     app.post('/facts', function(req, res) {
         console.log(req.body);
-        facts[facts.length] = req.body.fact;
+        var id = facts.length;
+        facts[id] = req.body.fact;
         res.status(201);
-        res.send(req.params.id);
+        res.send(id);
     });
 
     app.get('/facts/:id', function(req, res) {
@@ -58,15 +59,17 @@ var routes = function(app) {
     });
 
     app.put('/facts/:id', function(req, res) {
-        console.log(req.params.id, req.body);
-        facts[req.params.id] = req.body.fact;
-        res.send(toJson(facts[req.params.id]));
+        var id = req.params.id;
+        console.log(id, req.body);
+        facts[id] = req.body.fact;
+        res.send(toJson(facts[id]));
     });
 
     app.del('/facts/:id', function(req, res) {
-        console.log(req.params.id);
-        var json = toJson(facts[req.params.id]);
-        delete facts[req.params.id]
+        var id = req.params.id;
+        console.log(id);
+        var json = toJson(facts[id]);
+        delete facts[id];
         res.send(json);
     });
 
