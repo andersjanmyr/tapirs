@@ -10,7 +10,7 @@ var express = require('express'),
 
 var corsMiddleware = function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   next();
 };
 
@@ -32,6 +32,10 @@ app.configure('development', function(){
 
 app.get('/', function(req, res) {
     res.send('Tapirs Rule!');
+});
+
+app.options('*', function(req, res) {
+    res.send('CORS for the win!');
 });
 
 require('./routes/facts')(app);
