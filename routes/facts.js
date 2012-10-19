@@ -54,7 +54,11 @@ var routes = function(app) {
     });
 
     app.get('/facts/:id', function(req, res) {
-        res.send(toJson(facts[req.params.id]));
+        var fact = facts[req.params.id];
+        if (!fact)
+            res.send(404);
+        else
+            res.send(toJson(fact));
     });
 
     app.put('/facts/:id', function(req, res) {
