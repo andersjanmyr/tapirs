@@ -1,3 +1,5 @@
+"use strict";
+
 var facts = [
     'The tapir is related to the horse and the rhinoserous.',
     'The tapir is a fast and agile runner.',
@@ -36,8 +38,13 @@ function find_matching(name) {
     });
 }
 
+function randomId() {
+    return Math.floor(Math.random() * facts.length);
+}
+
 var routes = function(app) {
     app.get('/facts', function(req, res) {
+        var matching;
         if (req.query.search)
             matching = find_matching(req.query.search);
         else
@@ -54,7 +61,8 @@ var routes = function(app) {
     });
 
     app.get('/facts/:id', function(req, res) {
-        var fact = facts[req.params.id];
+        var id = req.params.id === 'random' ? randomId() : req.params.id;
+        var fact = facts[id];
         if (!fact)
             res.send(404);
         else
