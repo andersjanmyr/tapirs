@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tapirs</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Tapirs</h1>
+  <ul class='links'>
+    <li><a href='/facts'>Facts (JSON)</a></li>
+  </ul>
+  <ul class='facts'>
+    <% facts.forEach(function(fact) { %>
+    <li><%= fact.fact %></li>
+    <% }); %>
+  </ul>
+</body>
+</html>

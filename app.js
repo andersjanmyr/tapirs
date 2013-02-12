@@ -1,12 +1,9 @@
 "use strict";
 
-/**
- * Module dependencies.
- */
-
 var express = require('express'),
     http = require('http'),
-    path = require('path');
+    path = require('path'),
+    Fact = require('./models/fact.js');
 
 var corsMiddleware = function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -18,7 +15,9 @@ var app = express();
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
+  app.set('view engine', 'ejs');
   app.use(corsMiddleware);
+  app.use(express.static(__dirname + '/public'));
   app.use(express.favicon(__dirname + '/favicon.ico'));
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
@@ -31,7 +30,7 @@ app.configure('development', function(){
 });
 
 app.get('/', function(req, res) {
-    res.send('Tapirs Rule!');
+    res.render('index', {facts: Fact.find()});
 });
 
 app.options('*', function(req, res) {
