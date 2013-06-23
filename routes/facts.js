@@ -14,8 +14,11 @@ var routes = function(app) {
 
   app.get('/facts/:id', function(req, res) {
     var id = req.params.id;
-    var fact = id === 'random' ? Fact.random() : Fact.get(id);
-    res.send(fact);
+    var fact = (id === 'random') ? Fact.random() : Fact.get(id);
+    if (fact)
+      res.send(fact);
+    else
+      res.send(404, 'Resource not found, id: ' + id);
   });
 
   app.put('/facts/:id', function(req, res) {

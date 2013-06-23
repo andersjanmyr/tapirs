@@ -30,11 +30,15 @@ app.configure('development', function(){
 });
 
 app.get('/', function(req, res) {
-    res.render('index', {facts: Fact.find()});
+  res.render('index', {facts: Fact.find()});
+});
+
+app.get('/status', function(req, res) {
+  res.send('Tapirs Rule!');
 });
 
 app.options('*', function(req, res) {
-    res.send('CORS for the win!');
+  res.send('CORS for the win!');
 });
 
 require('./routes/facts')(app);

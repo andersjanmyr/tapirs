@@ -79,7 +79,11 @@ function find(name) {
 }
 
 function get(id) {
-  return toJson(facts[id]);
+  var fact = facts[id];
+  if (fact)
+    return toJson(fact);
+  else
+    return null;
 }
 
 function random() {
