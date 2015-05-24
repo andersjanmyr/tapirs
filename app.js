@@ -1,7 +1,13 @@
 "use strict";
 
-var express = require('express'),
+var
+    bodyParser = require('body-parser'),
+    errorHandler = require('errorhandler'),
+    express = require('express'),
+    favicon = require('serve-favicon'),
     http = require('http'),
+    methodOverride = require('method-override'),
+    morgan = require('morgan'),
     path = require('path'),
     Fact = require('./models/fact.js');
 
@@ -13,21 +19,17 @@ var corsMiddleware = function (req, res, next) {
 
 var app = express();
 
-app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
-  app.set('view engine', 'ejs');
-  app.use(corsMiddleware);
-  app.use(express.static(__dirname + '/public'));
-  app.use(express.favicon(__dirname + '/favicon.ico'));
-  app.use(express.logger('dev'));
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(app.router);
-});
+app.set('port', process.env.PORT || 3000);
+app.set('view engine', 'ejs');
+app.use(corsMiddleware);
+app.use(express.static(__dirname + '/public'));
+app.use(favicon(__dirname + '/favicon.ico'));
+app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(methodOverride());
 
-app.configure('development', function(){
-  app.use(express.errorHandler());
-});
+if (process.env.NODE_ENV === 'development')
+  app.use(errorHandler());
 
 app.get('/', function(req, res) {
   res.render('index', {facts: Fact.find()});

@@ -28,7 +28,7 @@ var routes = function(app) {
     res.send(fact);
   });
 
-  app.del('/facts/:id', function(req, res) {
+  app.delete('/facts/:id', function(req, res) {
     var id = req.params.id;
     var fact = Fact.del(id);
     res.send(fact);
