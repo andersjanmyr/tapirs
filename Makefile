@@ -7,7 +7,7 @@ build:
 
 
 .PHONY: publish
-publish: build
+publish:
 	docker push andersjanmyr/$(NAME)
 
 .PHONY: run
